@@ -1,0 +1,24 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9656e4f5af8f4a5b40dbc54813665394"
+name = "revlon-yash"
+handle = "revlon-yash"
+application_url = "https://shopify.dev/apps/default-app-home"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+
+[webhooks]
+api_version = "2025-04"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "customer_read_customers,customer_write_customers,customer_read_orders,customer_write_orders,read_customers,customer_read_draft_orders,write_customers,read_orders,write_orders,read_products,write_products,read_inventory,write_inventory,read_draft_orders,write_draft_orders,read_checkouts,write_checkouts"
+
+[auth]
+redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+
+[pos]
+embedded = false
+
