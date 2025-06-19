@@ -12,6 +12,7 @@ import {
   useApi,
 } from '@shopify/ui-extensions-react/customer-account';
 import {useEffect, useState} from 'react';
+import Sidebar from '../../../components/Sidebar';
 
 export default reactExtension('customer-account.page.render', ({
   authenticatedAccount
@@ -135,10 +136,10 @@ function CustomerAccountPage({
         },
         body: JSON.stringify(getCustomerNameQuery),
       }).then((response) => response.json())
-      .then(({data: { customer: {firstName,displayName,emailAddress,metafield}}}) => {
+      .then(({data: { customer: {firstName,displayName,emailAddress,metafield,companyContacts}}}) => {
         setCustomerEmail(emailAddress?.emailAddress)
         setCustomerAccountNumber(metafield?.value || null);
-        console.log("Customer Name:", firstName,displayName,emailAddress,metafield); // Debugging line to check the customer name
+        console.log("Customer Name:", firstName,displayName,emailAddress,metafield,companyContacts); // Debugging line to check the customer name
       }).catch(console.error);
   },[]);
   useEffect(() => {
@@ -152,44 +153,11 @@ function CustomerAccountPage({
 
   return (
     <Grid columns={['30%', 'fill']} spacing="extraLoose">
-      {/* LEFT COLUMN - Sidebar */}
-      <GridItem>
-        <View padding="base" border="base" background="bg-surface" cornerRadius="base">
-          <BlockStack spacing="extraLoose">
-            <SectionTitle title="MY AREA" />
-
-            <BlockStack spacing="loose">
-              <LabelValue label="Customer:" value="CLASSICS" bold />
-              <LabelValue label="Account Nr:" value={customerAccountNumber} bold />
-              <LabelValue label="Your account manager:" value="Rachael Cole" bold />
-              <LabelValue label="Email Address:" value={customerEmail} bold />
-              <Grid columns={['50%', '50%']} spacing="tight">
-                <LabelValue label="Loyalty points:" value="0" bold />
-                <LabelValue label="Expire this month:" value="0" bold />
-              </Grid>
-            </BlockStack>
-
-            <View border="base" borderColor="border" borderWidth="1" />
-
-            <BlockStack spacing="loose">
-              {[
-                ['Personal data', '/account/personal'],
-                ['Order history', '/account/orders'],
-                ['Documents', '/account/documents'],
-                ['Open items (1)', '/account/open-items'],
-                ['Order form', '/account/order-form'],
-                ['Purchased products', '/account/purchased-products'],
-                ['Favorites', '/account/favorites'],
-                ['Change password', '/account/change-password'],
-              ].map(([label, url]) => (
-                <Link key={label} to={url}>
-                  <Text size="medium" appearance="default">{label}</Text>
-                </Link>
-              ))}
-            </BlockStack>
-          </BlockStack>
-        </View>
-      </GridItem>
+      {/* LEFT COLUMN - Sidebar */}  
+      <Sidebar
+        customerAccountNumber={customerAccountNumber}
+        customerEmail={customerEmail}
+      />
 
       {/* RIGHT COLUMN - Content */}
       <GridItem>
