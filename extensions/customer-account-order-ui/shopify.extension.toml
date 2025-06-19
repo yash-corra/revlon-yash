@@ -6,11 +6,9 @@
 api_version = "2025-04"
 
 [[extensions]]
-name = "customer-account-ui"
-handle = "customer-account-ui"
+name = "customer-account-order-ui"
+handle = "customer-account-order-ui"
 type = "ui_extension"
-
-#Declare
 
 
 # Controls where in Shopify your extension will be injected,
